@@ -14,8 +14,8 @@ module ParkingLot
       ''
     end
 
-    put '/parking/:plate' do
-      ''
+    get '/parking/:plate' do
+      '{}'
     end
   end
 end
