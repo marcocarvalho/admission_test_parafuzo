@@ -3,7 +3,7 @@ services:
   web:
     build:
       context: .
-    command: sh
+    command: sh -c '(bundle check || bundle install) && thin start'
     volumes:
       - .:/app:cached
     #env_file: .env
