@@ -1,3 +1,5 @@
+require 'bundler'
+Bundler.setup
 
 begin
   require 'rspec/core/rake_task'

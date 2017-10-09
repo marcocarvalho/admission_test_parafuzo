@@ -1,0 +1,12 @@
+development:
+  clients:
+    default:
+      database: parking_lot_development
+      hosts:
+        - mongo:27017
+test:
+  clients:
+    default:
+      database: parking_lot_test
+      hosts:
+        - mongo:27017

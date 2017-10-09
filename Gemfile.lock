@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/mongoid-rspec/mongoid-rspec.git
+  revision: f392d24abc6853895bd959b4916cd82a1b12f6f4
+  specs:
+    mongoid-rspec (4.0.0.pre.alpha1)
+      activesupport (>= 4.0.0)
+      mongoid (~> 6.0)
+      rspec (~> 3.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -26,6 +35,7 @@ GEM
       rack
     rack-test (0.7.0)
       rack (>= 1.0, < 3)
+    rake (12.1.0)
     rspec (3.6.0)
       rspec-core (~> 3.6.0)
       rspec-expectations (~> 3.6.0)
@@ -58,7 +68,9 @@ PLATFORMS
 
 DEPENDENCIES
   mongoid (~> 6.1.0)
+  mongoid-rspec!
   rack-test
+  rake
   rspec (~> 3.6)
   sinatra (~> 2.0)
   thin (~> 1.7)
