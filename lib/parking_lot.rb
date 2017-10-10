@@ -3,3 +3,18 @@ require 'parking_lot/database'
 require 'parking_lot/errors'
 require 'parking_lot/models/parking'
 require 'parking_lot/services'
+
+module ParkingLot
+  module_function
+    def pay(params)
+      Services::Pay.new(params).call
+    end
+
+    def leave(params)
+      Services::Leave.new(params).call
+    end
+
+    def enter(params)
+      Services::Enter.new(params).call
+    end
+end
