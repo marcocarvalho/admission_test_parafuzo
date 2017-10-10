@@ -13,4 +13,6 @@ end
 RSpec.configure do |config|
   config.include RSpecMixin, type: :controller
   config.include Mongoid::Matchers, type: :model
+
+  config.after(:example) { Mongoid.purge! }
 end

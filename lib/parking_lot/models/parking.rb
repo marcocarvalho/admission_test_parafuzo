@@ -15,11 +15,19 @@ module ParkingLot
       validates :plate, format: { with: /[a-z]{3}-\d{4}/i }
       validates :left_at, presence: true, if: :left
 
-      after_validation :upcase_plate
+      validate :plate_uniqueness, on: :create
+
+      before_validation :upcase_plate
 
       index plate: 1
 
       private
+
+      def plate_uniqueness
+        if self.class.where(plate: plate, left: false).count > 0
+          errors.add(:plate, 'already entered')
+        end
+      end
 
       def upcase_plate
         plate.upcase! if plate.present?
