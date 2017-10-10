@@ -22,6 +22,12 @@ module ParkingLot
       def permitted_params
         %i(plate)
       end
+
+      protected
+
+      def not_found!
+        raise ParkingLot::Errors::NotFound.new("plate #{params[:plate]} not found")
+      end
     end
   end
 end
