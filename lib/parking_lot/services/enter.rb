@@ -9,10 +9,6 @@ module ParkingLot
       def build_entity
         @parking = model.new(params)
       end
-
-      def permitted_params
-        %i(plate)
-      end
     end
   end
 end

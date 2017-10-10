@@ -20,7 +20,7 @@ module ParkingLot
       end
 
       def permitted_params
-        []
+        %i(plate)
       end
     end
   end
