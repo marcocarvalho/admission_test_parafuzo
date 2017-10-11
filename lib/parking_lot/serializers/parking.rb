@@ -1,16 +1,7 @@
 module ParkingLot
   module Serializers
-    class Parking
-      include ActiveModel::Serialization
-      include ActiveModel::Serializers::JSON
-
-      attr_accessor :model
-
+    class Parking < Base
       delegate :plate, :entered_at, to: :model
-
-      def initialize(model)
-        @model = model
-      end
 
       def reservation
         model._id.to_s.first(6)

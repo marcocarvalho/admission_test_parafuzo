@@ -8,14 +8,14 @@ require 'parking_lot/serializers'
 module ParkingLot
   module_function
     def pay(params)
-      Services::Pay.new(params).call
+      Services::Pay.new(params)
     end
 
     def leave(params)
-      Services::Leave.new(params).call
+      Services::Leave.new(params)
     end
 
     def enter(params)
-      Services::Enter.new(params).call
+      Services::Enter.new(params)
     end
 end
