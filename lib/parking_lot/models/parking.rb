@@ -7,7 +7,7 @@ module ParkingLot
       field :plate, type: String
       field :paid, type: Boolean, default: false
       field :left, type: Boolean, default: false
-      field :enter_at, type: DateTime, default: -> { Time.now }
+      field :entered_at, type: DateTime, default: -> { Time.now }
       field :left_at, type: DateTime
 
 

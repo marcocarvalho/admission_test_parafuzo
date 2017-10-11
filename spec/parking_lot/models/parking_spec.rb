@@ -6,7 +6,7 @@ RSpec.describe ParkingLot::Models::Parking, type: :model do
     it { is_expected.to have_field(:plate).of_type(String) }
     it { is_expected.to have_field(:paid).of_type(Mongoid::Boolean).with_default_value_of(false) }
     it { is_expected.to have_field(:left).of_type(Mongoid::Boolean).with_default_value_of(false) }
-    it { is_expected.to have_field(:enter_at).of_type(DateTime) }
+    it { is_expected.to have_field(:entered_at).of_type(DateTime) }
     it { is_expected.to have_field(:left_at).of_type(DateTime) }
   end
 
