@@ -15,7 +15,7 @@ module ParkingLot
     put '/parking/:plate/out' do
       leave_service = ParkingLot.leave(params)
       leave_service.call
-      render leave_service.parking, serializer: :leave
+      render leave_service.parking, serializer: :no_content
     end
 
     put '/parking/:plate/pay' do
@@ -26,6 +26,10 @@ module ParkingLot
 
     get '/parking/:plate' do
       '{}'
+    end
+
+    error ParkingLot::Errors::NotPaid do
+      [422, { errors: { plate: ["not paid"] } }.to_json ]
     end
 
     error ParkingLot::Errors::NotFound do

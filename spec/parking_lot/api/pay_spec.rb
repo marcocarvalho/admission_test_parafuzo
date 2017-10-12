@@ -33,7 +33,7 @@ RSpec.describe ParkingLot::API, type: :controller do
           expect(last_response.status).to eq(204)
         end
 
-        it 'returns body with parking information' do
+        it 'returns no body' do
           expect(last_response.body).to be_empty
         end
 
