@@ -10,3 +10,8 @@ test:
       database: parking_lot_test
       hosts:
         - mongo:27017
+
+production:
+  clients:
+    default:
+      uri: <% ENV['MONGODB_URI'] %>
