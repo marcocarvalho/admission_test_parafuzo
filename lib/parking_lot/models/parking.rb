@@ -1,6 +1,8 @@
 module ParkingLot
   module Models
     class Parking
+      PLATE_REGEX = /[a-z]{3}-\d{4}/i
+
       include Mongoid::Document
       include Mongoid::Timestamps
 
@@ -12,7 +14,7 @@ module ParkingLot
 
 
       validates :plate, presence: true
-      validates :plate, format: { with: /[a-z]{3}-\d{4}/i }
+      validates :plate, format: { with: PLATE_REGEX }
       validates :left_at, presence: true, if: :left
 
       validate :plate_uniqueness, on: :create

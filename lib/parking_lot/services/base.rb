@@ -5,6 +5,7 @@ module ParkingLot
 
       def initialize(params = {})
         @raw_params = params.with_indifferent_access
+        invalid_plate! unless valid_plate?
       end
 
       def errors
@@ -23,7 +24,15 @@ module ParkingLot
         %i(plate)
       end
 
+      def valid_plate?
+        params[:plate] =~ ::ParkingLot::Models::Parking::PLATE_REGEX
+      end
+
       protected
+
+      def invalid_plate!
+        raise ParkingLot::Errors::InvalidPlate.new("plate #{params[:plate]} is invalid")
+      end
 
       def not_found!
         raise ParkingLot::Errors::NotFound.new("plate #{params[:plate]} not found")

@@ -21,11 +21,19 @@ module ParkingLot
     put '/parking/:plate/pay' do
       pay_service = ParkingLot.pay(params)
       pay_service.call
-      render pay_service.parking, serializer: :pay
+      render pay_service.parking, serializer: :no_content
     end
 
     get '/parking/:plate' do
       '{}'
+    end
+
+    error ParkingLot::Errors::NotFound do
+      [404, { errors: { plate: ['not found'] } }.to_json ]
+    end
+
+    error ParkingLot::Errors::InvalidPlate do
+      [422, { errors: { plate: ["is invalid"] } }.to_json ]
     end
 
     protected
@@ -33,6 +41,8 @@ module ParkingLot
     def render model, serializer:
       if model.invalid?
         [422, serializer_for(:errors).new(model).to_json]
+      elsif serializer == :no_content
+        [204, nil]
       else
         serializer_for(serializer).new(model).to_json
       end
