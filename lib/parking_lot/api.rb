@@ -6,26 +6,27 @@ module ParkingLot
       content_type 'application/json'
     end
 
+    get '/' do
+      { app: 'parking_lot', version: 1.0 }.to_json
+    end
+
     post '/parking' do
-      enter_service = ParkingLot.park(params)
-      enter_service.call
+      enter_service = ParkingLot.park(params).tap(&:call)
       render enter_service.parking, serializer: :parking
     end
 
     put '/parking/:plate/out' do
-      leave_service = ParkingLot.leave(params)
-      leave_service.call
+      leave_service = ParkingLot.leave(params).tap(&:call)
       render leave_service.parking, serializer: :no_content
     end
 
     put '/parking/:plate/pay' do
-      pay_service = ParkingLot.pay(params)
-      pay_service.call
+      pay_service = ParkingLot.pay(params).tap(&:call)
       render pay_service.parking, serializer: :no_content
     end
 
     get '/parking/:plate' do
-      '{}'
+      render ParkingLot.history(params).call, serializer: :history
     end
 
     error ParkingLot::Errors::NotPaid do
@@ -43,13 +44,20 @@ module ParkingLot
     protected
 
     def render model, serializer:
-      if model.invalid?
+      if model.respond_to?(:each)
+        [200, serialize_collection(model, serializer) ]
+      elsif model.invalid?
         [422, serializer_for(:errors).new(model).to_json]
       elsif serializer == :no_content
         [204, nil]
       else
         serializer_for(serializer).new(model).to_json
       end
+    end
+
+    def serialize_collection(models, serializer)
+      klass = serializer_for(serializer)
+      models.map { |m| klass.new(m) }.to_json
     end
 
     def serializer_for(name)

@@ -20,6 +20,10 @@ module ParkingLot
         @params ||= @raw_params.slice(*permitted_params)
       end
 
+      def coerced_params
+        @coerced_params ||= params.merge(plate: params[:plate].upcase)
+      end
+
       def permitted_params
         %i(plate)
       end

@@ -18,4 +18,8 @@ module ParkingLot
     def park(params)
       Services::Park.new(params)
     end
+
+    def history(params)
+      Services::History.new(params)
+    end
 end
