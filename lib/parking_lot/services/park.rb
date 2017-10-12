@@ -1,6 +1,6 @@
 module ParkingLot
   module Services
-    class Enter < Base
+    class Park < Base
       def call
         build_entity
         parking.valid? && parking.save

@@ -25,7 +25,7 @@ module ParkingLot
 
       def plate_uniqueness
         if self.class.where(plate: plate, left: false).count > 0
-          errors.add(:plate, 'already entered')
+          errors.add(:plate, 'already parked')
         end
       end
 

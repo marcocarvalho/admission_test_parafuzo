@@ -1,9 +1,4 @@
 RSpec.describe ParkingLot::API, type: :controller do
-  it 'gets /parking/:plate' do
-    get '/parking/aaa-9999'
-    expect(last_response).to be_ok
-  end
-
   context 'parking' do
     let(:plate) { 'BBB-9999' }
 
@@ -26,11 +21,11 @@ RSpec.describe ParkingLot::API, type: :controller do
     end
 
     context 'errors' do
-      it 'already entered' do
-        service = ParkingLot.enter(plate: plate).tap(&:call)
+      it 'already parked' do
+        service = ParkingLot.park(plate: plate).tap(&:call)
         post '/parking', { plate: plate }
         expect(last_response.status).to eq(422)
-        expect(last_response.body).to eq({ errors: { plate: ['already entered'] } }.to_json)
+        expect(last_response.body).to eq({ errors: { plate: ['already parked'] } }.to_json)
       end
 
       it 'is an invalid plate' do

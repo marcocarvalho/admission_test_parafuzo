@@ -1,7 +1,7 @@
 RSpec.describe ParkingLot do
   subject { described_class }
 
-  it { expect(subject.respond_to?(:enter)).to be_truthy }
+  it { expect(subject.respond_to?(:park)).to be_truthy }
   it { expect(subject.respond_to?(:pay)).to be_truthy }
   it { expect(subject.respond_to?(:leave)).to be_truthy }
 
@@ -14,8 +14,8 @@ RSpec.describe ParkingLot do
     end
 
     context 'enter' do
-      let(:service) { ParkingLot::Services::Enter }
-      it { expect(subject.enter(plate: plate)).to eq(:service) }
+      let(:service) { ParkingLot::Services::Park }
+      it { expect(subject.park(plate: plate)).to eq(:service) }
     end
 
     context 'pay' do

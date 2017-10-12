@@ -1,4 +1,4 @@
-RSpec.describe ParkingLot::Services::Enter do
+RSpec.describe ParkingLot::Services::Park do
   subject { described_class.new(params) }
 
   let(:params) { { plate: 'aaa-9999' } }
@@ -7,7 +7,7 @@ RSpec.describe ParkingLot::Services::Enter do
     expect { subject.call }.to change { ParkingLot::Models::Parking.where(plate: 'AAA-9999').count }.by(1)
   end
 
-  context 'alreary entered' do
+  context 'alreary parked' do
     before(:each) do
       service = described_class.new(params)
       service.call
@@ -19,7 +19,7 @@ RSpec.describe ParkingLot::Services::Enter do
     it 'do not create and show error' do
       expect { subject.call }.not_to change { ParkingLot::Models::Parking.where(plate: 'BBB-9999').count }
       expect(subject.errors).to be_present
-      expect(subject.errors[:plate]).to include('already entered')
+      expect(subject.errors[:plate]).to include('already parked')
     end
 
     it 'saves if plate already left' do

@@ -7,7 +7,7 @@ module ParkingLot
     end
 
     post '/parking' do
-      enter_service = ParkingLot.enter(params)
+      enter_service = ParkingLot.park(params)
       enter_service.call
       render enter_service.parking, serializer: :parking
     end

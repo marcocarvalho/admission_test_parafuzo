@@ -15,7 +15,7 @@ module ParkingLot
       Services::Leave.new(params)
     end
 
-    def enter(params)
-      Services::Enter.new(params)
+    def park(params)
+      Services::Park.new(params)
     end
 end
