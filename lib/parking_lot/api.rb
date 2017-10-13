@@ -9,9 +9,8 @@ module ParkingLot
 
     before do
       content_type :json
-      puts "content_type: #{request.env['CONTENT_TYPE']}"
-      puts params.inspect
-      if !form_urlencoded? && request.body.size > 0
+
+      if json? && request.body.size > 0
         request.body.rewind
         @params = params.merge!(ActiveSupport::JSON.decode(request.body.read))
       end
@@ -22,22 +21,22 @@ module ParkingLot
     end
 
     post '/parking' do
-      enter_service = ParkingLot.park(params).tap(&:call)
+      enter_service = ParkingLot.park(park_params).tap(&:call)
       render enter_service.parking, serializer: :parking
     end
 
     put '/parking/:plate/out' do
-      leave_service = ParkingLot.leave(params).tap(&:call)
+      leave_service = ParkingLot.leave(park_params).tap(&:call)
       render leave_service.parking, serializer: :no_content
     end
 
     put '/parking/:plate/pay' do
-      pay_service = ParkingLot.pay(params).tap(&:call)
+      pay_service = ParkingLot.pay(park_params).tap(&:call)
       render pay_service.parking, serializer: :no_content
     end
 
     get '/parking/:plate' do
-      render ParkingLot.history(params).call, serializer: :history
+      render ParkingLot.history(park_params).call, serializer: :history
     end
 
     error ParkingLot::Errors::NotPaid do
@@ -53,10 +52,29 @@ module ParkingLot
     end
 
     error JSON::ParserError do
-      [400, { errors: { base: ['bad request']}}.to_json ]
+      [400, { errors: { json: [ env['sinatra.error'].message ] }}.to_json ]
+    end
+
+    error ParkingLot::Errors::MissingParameter do
+      message = 'missing plate parameter.'
+      message += ' Maybe wrong content-type? \'application/x-www-form-urlencoded\' was given.' if form_urlencoded?
+      [400, { errors: { plate: [message] }}.to_json]
     end
 
     protected
+
+    def park_params
+      @park_params ||= check_params(params)
+    end
+
+    def check_params(params)
+      raise ParkingLot::Errors::MissingParameter.new if params[:plate].blank?
+      params
+    end
+
+    def json?
+      request.env["CONTENT_TYPE"] == 'application/json'
+    end
 
     def form_urlencoded?
       request.env["CONTENT_TYPE"] == 'application/x-www-form-urlencoded'

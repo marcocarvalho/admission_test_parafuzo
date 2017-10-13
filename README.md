@@ -69,9 +69,10 @@ Boa sorte e bora codar! :p
 ## CURLs para testar
 
 ```
-curl -X POST -d '{"plate": "aaA-4444"}' https://parking-lot-marcocarvalho.herokuapp.com/parking
+curl -X POST -d '{"plate": "aaA-4444"}' -H 'Content-type: application/json' https://parking-lot-marcocarvalho.herokuapp.com/parking
 curl -X PUT https://parking-lot-marcocarvalho.herokuapp.com/parking/aAa-4444/pay
 curl -X PUT https://parking-lot-marcocarvalho.herokuapp.com/parking/AaA-4444/out
+curl https://parking-lot-marcocarvalho.herokuapp.com/parking/AaA-4444
 ```
 
 Invalid Plate error:
