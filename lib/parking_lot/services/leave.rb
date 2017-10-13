@@ -7,13 +7,13 @@ module ParkingLot
       end
 
       def find_entity
-        @parking = model.where(params.merge(paid: true, left: false)).first
+        @parking = model.where(coerced_params.merge(paid: true, left: false)).first
       end
 
       private
 
       def not_paid?
-        if model.where(params.merge(paid: false, left: false)).first
+        if model.where(coerced_params.merge(paid: false, left: false)).first
           raise ParkingLot::Errors::NotPaid.new("plate #{params[:plate]} not paid")
         end
       end

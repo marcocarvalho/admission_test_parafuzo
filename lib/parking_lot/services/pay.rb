@@ -7,7 +7,7 @@ module ParkingLot
       end
 
       def find_entity
-        @parking = model.where(params.merge(paid: false, left: false)).first
+        @parking = model.where(coerced_params.merge(paid: false, left: false)).first
       end
     end
   end

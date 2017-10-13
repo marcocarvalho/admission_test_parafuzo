@@ -26,19 +26,19 @@ module ParkingLot
       def human_time(duration)
         case duration
         when 0..59
-          "#{duration} seconds"
+          "#{duration.to_i} seconds"
         when 60
           "1 minute"
         when 61..3599
-          "#{duration / 60} minutes"
+          "#{(duration / 60).to_i} minutes"
         when 3600
           "1 hour"
         when 3601..86399
-          "#{duration / 1.hour} hours #{duration % 1.hour / 60} minutes"
+          "#{(duration / 1.hour).to_i} hours #{(duration % 1.hour / 60).to_i} minutes"
         when 86400
           "1 day"
         else
-          "#{duration / 1.day} days #{duration % 1.day / 1.hour} hours"
+          "#{(duration / 1.day).to_i} days #{(duration % 1.day / 1.hour).to_i} hours"
         end
       end
     end

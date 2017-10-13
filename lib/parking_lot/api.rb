@@ -1,9 +1,18 @@
+require 'json'
+require 'sinatra'
 require 'sinatra/base'
+
 
 module ParkingLot
   class API < Sinatra::Base
+    set :show_exceptions, :after_handler
+
     before do
-      content_type 'application/json'
+      content_type :json
+      if !form_urlencoded? && request.body.size > 0
+        request.body.rewind
+        @params = params.merge!(ActiveSupport::JSON.decode(request.body.read))
+      end
     end
 
     get '/' do
@@ -41,7 +50,15 @@ module ParkingLot
       [422, { errors: { plate: ["is invalid"] } }.to_json ]
     end
 
+    error JSON::ParserError do
+      [400, { errors: { base: ['bad request']}}.to_json ]
+    end
+
     protected
+
+    def form_urlencoded?
+      request.env["CONTENT_TYPE"] == 'application/x-www-form-urlencoded'
+    end
 
     def render model, serializer:
       if model.respond_to?(:each)

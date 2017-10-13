@@ -65,3 +65,20 @@ Este projeto tem como objetivo testar como o programador realiza a divisão de c
 A descrição do projeto contem o mínimo exigido para considerar o sistema como funcional.
 
 Boa sorte e bora codar! :p
+
+## CURLs para testar
+
+```
+curl -X POST -d '{"plate": "aaA-4444"}' http://localhost:3000/parking
+curl -X PUT http://localhost:3000/parking/aAa-4444/pay
+curl -X PUT http://localhost:3000/parking/AaA-4444/out
+```
+
+Invalid Plate error:
+
+```
+curl -X POST -d '{"plate": "#####"}' http://localhost:3000/parking
+curl -X PUT http://localhost:3000/parking/1231234/pay
+curl -X PUT http://localhost:3000/parking/aaaaa/out
+curl http://localhost:3000/parking/aaaaaaa
+```
