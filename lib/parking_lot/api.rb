@@ -9,6 +9,8 @@ module ParkingLot
 
     before do
       content_type :json
+      puts "content_type: #{request.env['CONTENT_TYPE']}"
+      puts params.inspect
       if !form_urlencoded? && request.body.size > 0
         request.body.rewind
         @params = params.merge!(ActiveSupport::JSON.decode(request.body.read))

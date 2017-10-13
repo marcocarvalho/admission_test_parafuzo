@@ -69,16 +69,16 @@ Boa sorte e bora codar! :p
 ## CURLs para testar
 
 ```
-curl -X POST -d '{"plate": "aaA-4444"}' http://localhost:3000/parking
-curl -X PUT http://localhost:3000/parking/aAa-4444/pay
-curl -X PUT http://localhost:3000/parking/AaA-4444/out
+curl -X POST -d '{"plate": "aaA-4444"}' https://parking-lot-marcocarvalho.herokuapp.com/parking
+curl -X PUT https://parking-lot-marcocarvalho.herokuapp.com/parking/aAa-4444/pay
+curl -X PUT https://parking-lot-marcocarvalho.herokuapp.com/parking/AaA-4444/out
 ```
 
 Invalid Plate error:
 
 ```
-curl -X POST -d '{"plate": "#####"}' http://localhost:3000/parking
-curl -X PUT http://localhost:3000/parking/1231234/pay
-curl -X PUT http://localhost:3000/parking/aaaaa/out
-curl http://localhost:3000/parking/aaaaaaa
+curl -X POST -d '{"plate": "#####"}' https://parking-lot-marcocarvalho.herokuapp.com/parking
+curl -X PUT https://parking-lot-marcocarvalho.herokuapp.com/parking/1231234/pay
+curl -X PUT https://parking-lot-marcocarvalho.herokuapp.com/parking/aaaaa/out
+curl https://parking-lot-marcocarvalho.herokuapp.com/parking/aaaaaaa
 ```
