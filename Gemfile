@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rake'
 gem 'mongoid', '~> 6.1.0'
 gem 'sinatra', '~> 2.0'
+gem 'sinatra-cross_origin'
 gem 'thin', '~> 1.7'
 
 group :development, :test do

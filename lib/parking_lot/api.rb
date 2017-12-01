@@ -1,11 +1,15 @@
 require 'json'
 require 'sinatra'
 require 'sinatra/base'
-
+require 'sinatra/cross_origin'
 
 module ParkingLot
   class API < Sinatra::Base
     set :show_exceptions, :after_handler
+
+    configure do
+      enable :cross_origin
+    end
 
     before do
       content_type :json
@@ -14,6 +18,13 @@ module ParkingLot
         request.body.rewind
         @params = params.merge!(ActiveSupport::JSON.decode(request.body.read))
       end
+    end
+
+    options "*" do
+      response.headers["Allow"] = "GET, POST, OPTIONS"
+      response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept"
+      response.headers["Access-Control-Allow-Origin"] = "*"
+      halt 200
     end
 
     get '/' do
