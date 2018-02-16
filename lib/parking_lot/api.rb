@@ -18,11 +18,13 @@ module ParkingLot
         request.body.rewind
         @params = params.merge!(ActiveSupport::JSON.decode(request.body.read))
       end
+
+      response.headers['Access-Control-Allow-Origin'] = '*'
     end
 
     options "*" do
       response.headers["Allow"] = "GET, POST, OPTIONS"
-      response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept"
+      response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token" 
       response.headers["Access-Control-Allow-Origin"] = "*"
       halt 200
     end
