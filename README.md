@@ -1,6 +1,4 @@
-[![build status](http://gitlab.parafuzo.com/test/marco-carvalho/badges/master/build.svg)](http://gitlab.parafuzo.com/test/marco-carvalho/commits/master)
-
-# Marco Carvalho
+# Teste de Admissão na Parafuzo: Marco Carvalho
 
 Este projeto tem como objetivo testar os conhecimentos, código e a organização do candidato.
 
